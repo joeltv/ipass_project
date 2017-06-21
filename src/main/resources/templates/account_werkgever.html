@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Account aanmaken</title>
+    <link rel= "stylesheet" type= "text/css" href= "/css/main.css" />
+    <script src="js/gen_validatorv4.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+  <div class="login">
+  	<h1 class="login-heading">
+      <strong>Werkgeversaccount</strong> aanvragen</h1>
+      <form method="post" name="Form" id="werkgeversForm" th:action="@{/doSaveWerkgever}" action="#"   th:object="${werkgever}">
+          <input type="hidden" name="id" placeholder="Werkgever_ID" class="input-txt" th:value="*{id}" th:if="*{id} != null" />
+          <input type="text" name="voornaam" placeholder="Voornaam" class="input-txt" th:value="*{voornaam}" />
+          <ul  th:if="${#fields.hasErrors('voornaam')}">
+              <li th:each="err : ${#fields.errors('title')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="achternaam" placeholder="Achternaam" class="input-txt" th:value="*{achternaam}" />
+          <ul  th:if="${#fields.hasErrors('achternaam')}">
+              <li th:each="err : ${#fields.errors('achternaam')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="bedrijfsnaam" placeholder="Bedrijfsnaam" class="input-txt" th:value="*{bedrijfsnaam}" />
+          <ul  th:if="${#fields.hasErrors('bedrijfsnaam')}">
+              <li th:each="err : ${#fields.errors('bedrijfsnaam')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="Inlognaam" placeholder="Gebruikersnaam" class="input-txt" th:value="*{Inlognaam}" />
+          <ul  th:if="${#fields.hasErrors('Inlognaam')}">
+              <li th:each="err : ${#fields.errors('Inlognaam')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="input-txt" th:value="*{wachtwoord}" />
+          <ul  th:if="${#fields.hasErrors('wachtwoord')}">
+              <li th:each="err : ${#fields.errors('wachtwoord')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="emailadres" placeholder="E-mailadres" class="input-txt" th:value="*{emailadres}" />
+          <ul  th:if="${#fields.hasErrors('emailadres')}">
+              <li th:each="err : ${#fields.errors('emailadres')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="Telefoonnummer_Actor" placeholder="Telefoonnummer" class="input-txt" th:value="*{Telefoonnummer_Actor}" />
+          <ul  th:if="${#fields.hasErrors('Telefoonnummer_Actor')}">
+              <li th:each="err : ${#fields.errors('Telefoonnummer_Actor')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <input type="text" name="Telefoonnummer_Bedrijf" placeholder="Telefoonnummer bedrijf" class="input-txt" th:value="*{Telefoonnummer_Bedrijf}"/>
+          <ul  th:if="${#fields.hasErrors('Telefoonnummer_Bedrijf')}">
+              <li th:each="err : ${#fields.errors('Telefoonnummer_Bedrijf')}" th:text="${err}">Input is incorrect</li>
+          </ul>
+          <div class="login-footer">
+              <a href="/" class="lnk">
+                  <span class="icon icon--min"></span>
+                  Terug naar inlogscherm
+              </a>
+
+              <button type="submit" class="btn btn--right" > Account aanvragen </button>
+
+
+          </div>
+      </form>
+      <script  type="text/javascript">
+          var frmvalidator = new Validator("werkgeversForm");
+          frmvalidator.addValidation("voornaam","req","Voer uw voornaam in");
+          frmvalidator.addValidation("voornaam","maxlen=20", "Lengte van voornaam mag maximaal 20 letters zijn");
+
+          frmvalidator.addValidation("achternaam","req", "Voer uw achternaam in");
+          frmvalidator.addValidation("achternaam","maxlen=20", "Lengte van achternaam mag maximaal 20 letters zijn");
+
+          frmvalidator.addValidation("bedrijfsnaam","req", "Voer uw bedrijfsnaam in");
+          frmvalidator.addValidation("bedrijfsnaam","maxlen=20", "Lengte van bedrijfsnaam mag maximaal 20 letters zijn");
+
+          frmvalidator.addValidation("Inlognaam","req", "Voer uw gebruikersnaam in");
+          frmvalidator.addValidation("Inlognaam","maxlen=20", "Lengte van gebruikersnaam mag maximaal 20 letters zijn");
+
+          frmvalidator.addValidation("wachtwoord","req", "Voer uw wachtwoord in");
+          frmvalidator.addValidation("wachtwoord","maxlen=20", "Lengte van wachtwoord mag maximaal 20 letters zijn");
+
+          frmvalidator.addValidation("emailadres","maxlen=50", "E-mailadres mag maximaal 50 tekens zijn");
+          frmvalidator.addValidation("emailadres","req", "Voer uw e-mailadres in");
+          frmvalidator.addValidation("emailadres","email", "Formaat van e-mailadres klopt niet");
+
+          frmvalidator.addValidation("Telefoonnummer_Actor","req", "Voer uw telefoonnummer in");
+          frmvalidator.addValidation("Telefoonnummer_Actor","maxlen=10", "Telefoonnummer mag maximaal 10 cijfers zijn");
+          frmvalidator.addValidation("Telefoonnummer_Actor","numeric", "Telefoonnummer moet bestaan uit cijfers");
+
+          frmvalidator.addValidation("Telefoonnummer_Bedrijf","req", "Voer het telefoonnummer van uw bedrijf in");
+          frmvalidator.addValidation("Telefoonnummer_Bedrijf","maxlen=10", "Bedrijfstelefoonnummer mag maximaal 10 cijfers zijn");
+          frmvalidator.addValidation("Telefoonnummer_Bedrijf","numeric", "Bedrijfstelefoonnummer moet bestaan uit cijfers");
+      </script>
+
+  </div>
+</div>
+  <script src="js/account_werkgever.js"></script>
+</body>
+</html>
+

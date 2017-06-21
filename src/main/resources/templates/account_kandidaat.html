@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>aanmaken kandidaat</title>
+    <link rel= "stylesheet" type= "text/css" href= "/css/main.css" />
+    <script src="js/gen_validatorv4.js"></script>
+</head>
+<body>
+<button type="submit" class="btn uitlogKnop" onclick="location.href = '/'"> Uitloggen </button>
+<h2>Account aanmaken</h2>
+
+
+<ul>
+    <li><a href="/inboeken">Inboeken</a></li>
+    <li><a href="/account_kandidaat">Account aanmaken kandidaat</a></li>
+    <li><a href="/agendas_kandidaten">Agenda's kandidaten</a></li>
+</ul>
+
+<div class="container">
+
+
+
+
+    <div class="login">
+        <h1 class="login-heading">
+            <strong>Kandidaataccount</strong> aanmaken</h1>
+        <form method="post" name="Form" id="kandidaatsForm" th:action="@{/doSaveKandidaten}" action="#" th:object="${kandidaten}">
+            <input type="text" name="BSN" placeholder="BSN"  class="input-txt"  th:value="*{BSN}" />
+            <div class="row"  th:if="${param.bsnError}"> Dubbel BSN </div>
+            <ul  th:if="${#fields.hasErrors('BSN')}">
+                <li th:each="err : ${#fields.errors('BSN')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="voornaam" placeholder="Voornaam" class="input-txt" th:value="*{voornaam}" />
+            <ul  th:if="${#fields.hasErrors('voornaam')}">
+                <li th:each="err : ${#fields.errors('title')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="achternaam" placeholder="Achternaam" class="input-txt" th:value="*{achternaam}" />
+            <ul  th:if="${#fields.hasErrors('achternaam')}">
+                <li th:each="err : ${#fields.errors('achternaam')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="geboortedatum" placeholder="Geboortedatum" class="input-txt" th:value="*{geboortedatum}" />
+            <ul  th:if="${#fields.hasErrors('geboortedatum')}">
+                <li th:each="err : ${#fields.errors('geboortedatum')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="rekeningnummer" placeholder="Rekeningnummer" class="input-txt" th:value="*{rekeningnummer}" />
+            <ul  th:if="${#fields.hasErrors('rekeningnummer')}">
+                <li th:each="err : ${#fields.errors('rekeningnummer')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="postcode" placeholder="Postcode" class="input-txt" th:value="*{postcode}" />
+            <ul  th:if="${#fields.hasErrors('postcode')}">
+                <li th:each="err : ${#fields.errors('postcode')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="straat" placeholder="Straat" class="input-txt" th:value="*{straat}" />
+            <ul  th:if="${#fields.hasErrors('straat')}">
+                <li th:each="err : ${#fields.errors('straat')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="huisnummer" placeholder="Huisnummer" class="input-txt" th:value="*{huisnummer}" />
+            <ul  th:if="${#fields.hasErrors('huisnummer')}">
+                <li th:each="err : ${#fields.errors('huisnummer')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <input type="text" name="plaats" placeholder="Plaats" class="input-txt" th:value="*{plaats}"/>
+            <ul  th:if="${#fields.hasErrors('plaats')}">
+                <li th:each="err : ${#fields.errors('plaats')}" th:text="${err}">Input is incorrect</li>
+            </ul>
+            <div class="login-footer">
+
+                <button type="submit" class="btn btn--right" > Account aanvragen </button>
+
+
+            </div>
+        </form>
+
+        <script  type="text/javascript">
+            function geboorteDatumCheck()
+            {
+                var frm = document.forms["kandidaatsForm"];
+                var pattern =/^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+                if(!pattern.test(frm.geboortedatum.value))
+                {
+                    sfm_show_error_msg('Onjuist formaat geboortedatum',frm.geboortedatum);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            function rekeningnummerCheck()
+            {
+                var frm = document.forms["kandidaatsForm"];
+                var pattern =/^([A-Z]{2})([0-9]{2})([A-Z]{4})([0-9]{10})$/;
+                if(!pattern.test(frm.rekeningnummer.value))
+                {
+                    sfm_show_error_msg('Onjuist formaat rekeningnummer',frm.rekeningnummer);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            function postcodeCheck()
+            {
+                var frm = document.forms["kandidaatsForm"];
+                var pattern =/^([0-9]{4})([A-Z]{2})$/;
+                if(!pattern.test(frm.postcode.value))
+                {
+                    sfm_show_error_msg('Onjuist formaat postcode',frm.postcode);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            function huisnummerCheck()
+            {
+                var frm = document.forms["kandidaatsForm"];
+                if(!isNaN(parseFloat(frm.huisnummer.value.substring(0,1))), isFinite(frm.huisnummer.value.substring(0, 1)) != true)
+                {
+                    sfm_show_error_msg('Onjuist formaat huisnummer',frm.huisnummer);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            var frmvalidator = new Validator("kandidaatsForm");
+            frmvalidator.addValidation("BSN","req","Voer uw BSN in");
+            frmvalidator.addValidation("BSN","numeric", "BSN moet bestaan uit cijfers");
+            frmvalidator.addValidation("BSN","maxlen=9", "Lengte van BSN mag maximaal 9 cijfers zijn");
+
+            frmvalidator.addValidation("voornaam","req","Voer uw voornaam in");
+            frmvalidator.addValidation("voornaam","maxlen=20", "Lengte van voornaam mag maximaal 20 letters zijn");
+
+            frmvalidator.addValidation("achternaam","req", "Voer uw achternaam in");
+            frmvalidator.addValidation("achternaam","maxlen=20", "Lengte van achternaam mag maximaal 20 letters zijn");
+
+            frmvalidator.addValidation("geboortedatum","req","Voer uw geboortedatum in");
+            frmvalidator.setAddnlValidationFunction(geboorteDatumCheck);
+
+            frmvalidator.addValidation("rekeningnummer","req","Voer uw rekeningnummer in");
+            frmvalidator.setAddnlValidationFunction(rekeningnummerCheck);
+
+            frmvalidator.addValidation("postcode","req","Voer uw postcode in");
+            frmvalidator.setAddnlValidationFunction(postcodeCheck);
+
+            frmvalidator.addValidation("straat","req", "Voer uw straat in");
+            frmvalidator.addValidation("straat","maxlen=20", "Lengte van straat mag maximaal 20 letters zijn");
+
+            frmvalidator.addValidation("huisnummer","req","Voer uw huisnummer in");
+            frmvalidator.setAddnlValidationFunction(huisnummerCheck);
+
+            frmvalidator.addValidation("plaats","req", "Voer uw plaats in");
+            frmvalidator.addValidation("plaats","maxlen=20", "Lengte van plaats mag maximaal 20 letters zijn");
+
+
+        </script>
+
+    </div>
+</div>
+
+
+</body>
+</html>

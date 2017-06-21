@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Agenda's kandidaten</title>
+    <link rel= "stylesheet" type= "text/css" href= "/css/main.css" />
+</head>
+<body>
+<button type="submit" class="btn uitlogKnop" onclick="location.href = '/'"> Uitloggen </button>
+
+<h2>Agenda's kandidaten</h2>
+
+<ul>
+    <li><a href="/inboeken">Inboeken</a></li>
+    <li><a href="/account_kandidaat">Account aanmaken kandidaat</a></li>
+    <li><a href="/agendas_kandidaten">Agenda's kandidaten</a></li>
+</ul>
+
+
+<div class="inboeken">
+    <div class="kandidaten">
+        <h2>Kandidaat</h2>
+        <p>Selecteer hieronder de kandidaat: </p>
+
+        <form  method="get">
+            <select name="kandidaat">
+                <option th:each="kandidaat : ${kandidaten}" value="" th:value="${kandidaat.BSN}"><span th:text="${kandidaat.Voornaam} + ' ' + ${kandidaat.Achternaam}">
+                    Kandidaat</span>
+                </option>
+            </select>
+            <input type="submit" />
+        </form>
+
+
+    </div>
+</div>
+<div class="kalender"></div>
+
+<script src="js/inboeken.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Inboeken examens</title>
+    <link rel= "stylesheet" type= "text/css" href= "/css/main.css" />
+</head>
+<body onload="myFunction()">
+<button type="submit" class="btn uitlogKnop" onclick="location.href = '/'"> Uitloggen </button>
+
+<h2>Inboeken</h2>
+
+
+<ul>
+    <li><a href="/inboeken">Inboeken</a></li>
+    <li><a href="/account_kandidaat">Account aanmaken kandidaat</a></li>
+    <li><a href="/agendas_kandidaten">Agenda's kandidaten</a></li>
+</ul>
+
+
+<div class="inboeken">
+    <div class="examen">
+    <h2>Examen</h2>
+    <p>Selecteer hieronder het examen: </p>
+        <form  method="get">
+            <select name="examen">
+                <option th:each="examen : ${examens}" value="" th:value="${examen.Examen_id}"><span th:text="${examen.Examennaam}">
+                    Kandidaat</span>
+                </option>
+            </select>
+        </form>
+
+    </div>
+    <div class="datum">
+    <h2>Datum</h2>
+    <p>Selecteer hieronder de datum: </p>
+        <input list="data" name="browser"> </input>
+        <datalist id="data">
+            <option value="Internet Explorer"> </option>
+            <option value="Firefox"> </option>
+            <option value="Chrome"> </option>
+            <option value="Opera"> </option>
+            <option value="Safari"> </option>
+        </datalist>
+    </div>
+</div>
+<div class="inboeken2">
+    <div class="locatie">
+    <h2>Locatie</h2>
+    <p>Selecteer hieronder de locatie: </p>
+            <input list="locaties" name="browser"> </input>
+            <datalist id="locaties">
+                <option value="Internet Explorer"> </option>
+                <option value="Firefox"> </option>
+                <option value="Chrome"> </option>
+                <option value="Opera"> </option>
+                <option value="Safari"> </option>
+            </datalist>
+    </div>
+    <div class="kandidaten">
+    <h2>Kandidaten</h2>
+    <p>Selecteer hieronder de kandidaten: </p>
+        <div class="kandidatenlijst" >
+            <div class="kandidatenlijst">
+                <div th:each="kandidaat : ${kandidaten}" >
+                    <input type="checkbox" name="kandidaatID" value="1" th:value="${kandidaat.BSN}" /> <span th:text="${kandidaat.Voornaam} + ' ' + ${kandidaat.Achternaam}">This is checkbox</span> <br />
+                </div>
+            </div>
+        </div>
+        <a href="/account_kandidaat"> Nieuwe kandidaten aanmaken</a>
+    </div>
+    <button type="submit" class="btn inboekKnop" onclick="location.href = '/inboeken'"> Inboeken </button>
+</div>
+<script src= "js/inboeken.js"> </script>
+
+
+</body>
+</html>
