@@ -18,5 +18,4 @@ public interface KandidatenRepository extends JpaRepository<Kandidaten, Integer>
 
     public List<Kandidaten> findAll();
 
-
 }

@@ -34,28 +34,26 @@
     <div class="datum">
     <h2>Datum</h2>
     <p>Selecteer hieronder de datum: </p>
-        <input list="data" name="browser"> </input>
-        <datalist id="data">
-            <option value="Internet Explorer"> </option>
-            <option value="Firefox"> </option>
-            <option value="Chrome"> </option>
-            <option value="Opera"> </option>
-            <option value="Safari"> </option>
-        </datalist>
+        <form  method="get">
+            <select name="tijd">
+                <option th:each="tijd : ${tijden}" value="" th:value="${tijd.Tijd_id}"><span th:text="${tijd.Begintijd}">
+                    Tijd</span>
+                </option>
+            </select>
+        </form>
     </div>
 </div>
 <div class="inboeken2">
     <div class="locatie">
     <h2>Locatie</h2>
     <p>Selecteer hieronder de locatie: </p>
-            <input list="locaties" name="browser"> </input>
-            <datalist id="locaties">
-                <option value="Internet Explorer"> </option>
-                <option value="Firefox"> </option>
-                <option value="Chrome"> </option>
-                <option value="Opera"> </option>
-                <option value="Safari"> </option>
-            </datalist>
+        <form  method="get">
+            <select name="locatie">
+                <option th:each="locatie : ${locaties}" value="" th:value="${locatie.Locatie_id}"><span th:text="${locatie.Naam}">
+                    Locatie</span>
+                </option>
+            </select>
+        </form>
     </div>
     <div class="kandidaten">
     <h2>Kandidaten</h2>

@@ -1,12 +1,8 @@
 package ipass.controller;
 
 
-import ipass.Examen;
-import ipass.Kandidaten;
-import ipass.Werkgever;
-import ipass.repository.ExamenRepository;
-import ipass.repository.WerkgeverRepository;
-import ipass.repository.KandidatenRepository;
+import ipass.*;
+import ipass.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +30,15 @@ public class HomeController {
     @Autowired
     ExamenRepository examenRepository;
 
+    @Autowired
+    LocatieRepository locatieRepository;
+
+    @Autowired
+    TijdRepository tijdRepository;
+
+    @Autowired
+    ExamenMomentRepository examenMomentRepository;
+
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
         System.out.println("HELLO");
@@ -47,10 +52,16 @@ public class HomeController {
         System.out.println("HELLO INBOEKEN");
         List<Kandidaten> alleKandidaten = kandidatenRepository.findAll();
         List<Examen> alleExamens = examenRepository.findAll();
+        List<Locatie> alleLocaties = locatieRepository.findUniqueLocations();
+        List<Tijd> alleTijden = tijdRepository.findAll();
         System.out.println(alleKandidaten);
         System.out.println(alleExamens);
+        System.out.println(alleLocaties);
+        System.out.println(alleTijden);
         model.addAttribute("kandidaten", alleKandidaten);
         model.addAttribute("examens", alleExamens);
+        model.addAttribute("locaties", alleLocaties);
+        model.addAttribute("tijden", alleTijden);
         return "inboeken";
     }
 
@@ -124,5 +135,20 @@ public class HomeController {
         }
 
         return "redirect:inboeken";
+    }
+
+    @RequestMapping("doSaveExamenMoment")
+    public String saveExamenMoment(@Valid ExamenMoment examenMoment, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        System.out.println("Saving");
+        System.out.println(bindingResult.toString());
+
+        if (bindingResult.hasErrors()) {
+            return "inboeken";
+        }
+
+        examenMomentRepository.save(examenMoment);
+
+        return "redirect:agendas_kandidaten";
     }
 }
